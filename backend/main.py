@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"CampusAI backend is running"}
+    return {"message": "CampusAI backend is running"}
 
 @app.get("/test-ai")
 def test_ai(): 
