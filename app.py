@@ -18,32 +18,28 @@ for message in st.session_state.messages:
   st.markdown(message["content"])
 
 # input dena hai sir...
-
 question = st.chat_input("Ask about university rules")
 
-if question:
+if question is not None:
 
+    st.session_state.messages.append({"role": "user", "content": question})
 
-# ye user ke message koshow karega ....
- st.session_state.messages.append({"role": "user", "content": question})
+    with st.chat_message("user"):
+        st.markdown(question)
 
-with st.chat_message("user"):
-    st.markdown(question)
+    with st.chat_message("assistant"):
+        message_placeholder = st.empty()
+        message_placeholder.markdown("AI is thinking...")
 
-# AI response dega bhai
-with st.chat_message("assistant"):
-    message_placeholder = st.empty()
-    message_placeholder.markdown("AI is thinking...")
+        time.sleep(1)
 
-    time.sleep(1)
+        answer = get_answer(question)
 
-    answer = get_answer(question)
+        message_placeholder.markdown(answer)
 
-    message_placeholder.markdown(answer)
-
-    st.session_state.messages.append(
-        {"role": "assistant", "content": answer}
-    )
+        st.session_state.messages.append(
+            {"role": "assistant", "content": answer}
+        )
 
 
 # Clear chat wala button
