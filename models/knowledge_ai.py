@@ -19,7 +19,7 @@ with open(file_path, "r", encoding="utf-8") as f:
     text = f.read()
 
 # split text into chunks
-chunks = [c.strip() for c in text.split("\n\n") if c.strip()]
+chunks = [c.strip() for c in text.split("\n") if c.strip()]
 
 # convert chunks to embeddings
 chunk_embeddings = model.encode(chunks)
