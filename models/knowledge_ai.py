@@ -33,10 +33,7 @@ chunk_embeddings = model.encode(chunks)
 
 def get_answer(question):
 
-    if not question:
-        return "Please ask a question."
-
-    question = question.strip().lower()
+    question = question.lower()
 
     question_embedding = model.encode([question])
 
@@ -45,6 +42,7 @@ def get_answer(question):
     best_match_index = similarity.argmax()
     best_score = similarity[0][best_match_index]
 
+    # confidence threshold
     if best_score < 0.2:
         return "Sorry, I couldn't find a relevant university rule for that question."
 
