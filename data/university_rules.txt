@@ -1,14 +1,94 @@
-Attendance Policy
-Students must maintain at least 75 percent attendance to appear in examinations.
+Examination : Students must maintain at least 75% attendance in each subject to appear in the examination.
+Examination : Students with attendance below 75% may be restricted from appearing in exams.
+Examination : Medical leave may be considered for attendance shortage if valid documents are provided.
+Examination : Students must attend all practical sessions as they are mandatory.
+Examination : Attendance will be recorded for every lecture by the course instructor.
+Examination : Repeated absence from classes without permission may lead to disciplinary action.
+Examination : Students arriving more than 10 minutes late may be marked absent for that lecture.
 
-Hostel Rules
-Hostel gates close at 10 PM. Students returning late must inform the warden.
+Examination : Students must carry their university ID card to the examination hall.
+Examination : Students must reach the examination hall at least 15 minutes before the exam begins.
+Examination : Electronic devices such as mobile phones are not allowed inside the examination hall.
+Examination : Students must follow all instructions given by the invigilator during examinations.
+Examination : Any form of cheating or malpractice during exams will lead to disciplinary action.
+Examination : Students must sign the attendance sheet during the examination.
+Examination : Late entry to the examination hall may not be allowed after 30 minutes.
 
-Library Rules
-The library is open from 9 AM to 8 PM on working days.
+Hostel : Hostel gates close at 10:00 PM for all students.
+Hostel : Students returning late to the hostel must inform the hostel warden.
+Hostel : Guests are not allowed inside hostel rooms without permission.
+Hostel : Students must maintain cleanliness in hostel rooms and common areas.
+Hostel : Cooking inside hostel rooms is strictly prohibited.
+Hostel : Students must follow quiet hours inside the hostel after 11:00 PM.
+Hostel : Damage to hostel property must be reported immediately to the warden.
 
-Exam Revaluation
-Students can apply for revaluation within 7 days of result declaration.
+Library : Students must maintain silence inside the library.
+Library : Library books must be returned before the due date.
+Library : Late return of library books may result in a fine.
+Library : Students must show their university ID card while entering the library.
+Library : Eating or drinking inside the library is not allowed.
+Library : Students must handle library materials carefully to avoid damage.
+Library : Mobile phones must be kept on silent mode inside the library.
 
-Leave Policy
-Students must submit leave applications through their department.
+Mess / Cafeteria : Food from the mess should not be taken outside the dining area.
+Mess / Cafeteria : Students must follow the meal timings set by the mess management.
+Mess / Cafeteria : Students must maintain cleanliness in the dining hall.
+Mess / Cafeteria : Wastage of food in the mess should be avoided.
+Mess / Cafeteria : Students must return plates and utensils after meals.
+Mess / Cafeteria : Outside food delivery may not be allowed inside the hostel mess area.
+
+Discipline : Students must behave respectfully towards faculty and staff members.
+Discipline : Use of abusive language inside campus premises is prohibited.
+Discipline : Students must follow university dress code guidelines where applicable.
+Discipline : Smoking and consumption of alcohol inside campus premises are strictly prohibited.
+Discipline : Any form of ragging is strictly banned in the university.
+Discipline : Students must follow all campus safety rules and regulations.
+Discipline : Violating university rules may lead to disciplinary action.
+
+ID Card : Students must carry their university ID card at all times inside the campus.
+ID Card : Students may be asked to show their ID card by security personnel.
+ID Card : Lost ID cards must be reported immediately to the administration office.
+ID Card : Duplicate ID cards may be issued after submitting an application.
+ID Card : Students must not share their ID cards with others.
+
+Campus : Students must follow all safety guidelines inside campus premises.
+Campus : Vehicles must be parked only in designated parking areas.
+Campus : Students must follow traffic rules inside the campus.
+Campus : Littering inside the campus is strictly prohibited.
+Campus : Students must participate in campus emergency drills when required.
+Campus : Unauthorized access to restricted areas is not allowed.
+
+Academic : Students must submit assignments before the given deadline.
+Academic : Plagiarism in assignments or projects is strictly prohibited.
+Academic : Students must participate in internal assessments and quizzes.
+Academic : Project work must be completed as per academic guidelines.
+Academic : Students must maintain academic integrity in all coursework.
+
+SOP: To apply for leave, students must submit a leave request through the student portal.
+SOP: Students must inform their faculty advisor before taking leave.
+SOP: Medical leave requires submission of a valid medical certificate.
+SOP: Leave applications must be submitted at least one day in advance when possible.
+
+SOP: Students must report lost ID cards to the administration office immediately.
+SOP: A duplicate ID card can be requested by submitting an application form.
+SOP: Students may be required to pay a replacement fee for a new ID card.
+SOP: Students must collect their new ID card from the student services office.
+
+SOP: Students returning to the hostel after gate closing must inform the warden.
+SOP: Late entry may require signing the late entry register at the hostel gate.
+SOP: Repeated late entry without permission may result in disciplinary action.
+
+SOP: Students can submit complaints through the university grievance portal.
+SOP: Complaints may also be submitted directly to the student affairs office.
+SOP: Students must provide details of the issue when submitting a complaint.
+SOP: The administration will review and respond to complaints within a reasonable time.
+
+SOP: Students must present their ID card to borrow library books.
+SOP: Each student may borrow a limited number of books at a time.
+SOP: Books must be returned before the due date to avoid fines.
+SOP: Damaged or lost books must be replaced or paid for by the student.
+
+SOP: Assignments must be submitted through the university learning portal.
+SOP: Late submissions may receive reduced marks unless approved by the instructor.
+SOP: Students must ensure their work is original to avoid plagiarism.
+SOP: Group assignments must include the names of all contributing members.

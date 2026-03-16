@@ -26,11 +26,12 @@ chunk_embeddings = model.encode(chunks)
 categories = {
     "attendance": ["attendance", "class", "lecture"],
     "hostel": ["hostel", "gate", "warden", "room"],
-    "mess": ["mess", "food", "canteen"],
-    "exam": ["exam", "examination", "test", "marks"],
-    "discipline": ["discipline", "misconduct", "behavior"],
+    "exam": ["exam", "test", "invigilator"],
+    "library": ["library", "book"],
+    "mess": ["mess", "canteen", "food"],
+    "discipline": ["discipline", "behavior", "misconduct"],
+    "sop": ["procedure", "apply", "application", "process"]
 }
-
 
 def detect_category(question):
     question = question.lower()
@@ -76,7 +77,7 @@ def get_answer(question):
 
         if score >= 0.45:
             results.append(
-                f"📂 Category: {category if category else 'general'}\n"
+                f"Category: {category if category else 'general'}\n"
                 f"{filtered_chunks[idx]}\n"
                 f"Confidence: {round(score,2)}"
             )
