@@ -6,10 +6,11 @@ import os
 # load embedding model
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 file_path = os.path.join(BASE_DIR, "data", "university_rules.txt")
+
+if not os.path.exists(file_path):
+    raise FileNotFoundError(f"File not found: {file_path}")
 
 with open(file_path, "r", encoding="utf-8") as f:
     text = f.read()
