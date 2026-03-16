@@ -44,14 +44,7 @@ if "messages" not in st.session_state:
 st.header("Ask about Medicaps university rules...")
 
 # -----------------------------
-# DISPLAY OLD MESSAGES
-# -----------------------------
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# -----------------------------
-# QUICK QUESTIONS
+# QUICK QUESTIONS (ONLY ONCE)
 # -----------------------------
 st.subheader("Quick Questions")
 
@@ -67,6 +60,15 @@ if col2.button("Hostel gate timing"):
 
 if col3.button("Leave procedure"):
     quick_question = "How to apply for leave?"
+
+st.divider()
+
+# -----------------------------
+# DISPLAY OLD MESSAGES
+# -----------------------------
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # -----------------------------
 # CHAT INPUT
