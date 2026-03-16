@@ -2,45 +2,50 @@ import streamlit as st
 import time
 from models.knowledge_ai import get_answer
 import pandas as pd
-import altair as alt
 from datetime import datetime
 
 st.title("TrinoCaps AI")
 
-st.subheader("📊 TrinoCaps Analytics Panel")
-
-# total questions
-total_questions = len(st.session_state.analytics)
-st.metric("Total Questions Asked", total_questions)
-
-# most asked category
-if st.session_state.categories:
-    cat_series = pd.Series(st.session_state.categories)
-    most_common = cat_series.value_counts().idxmax()
-    st.metric("Most Asked Category", most_common)
-# -----------------------------
-# CHAT MEMORY
-# -----------------------------
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 # -----------------------------
 # ANALYTICS MEMORY
 # -----------------------------
-
 if "analytics" not in st.session_state:
     st.session_state.analytics = []
 
 if "categories" not in st.session_state:
     st.session_state.categories = []
 
+# -----------------------------
+# ANALYTICS PANEL (TOP)
+# -----------------------------
+st.subheader("📊 TrinoCaps Analytics")
+
+colA, colB = st.columns(2)
+
+total_questions = len(st.session_state.analytics)
+colA.metric("Total Questions Asked", total_questions)
+
+if st.session_state.categories:
+    cat_series = pd.Series(st.session_state.categories)
+    most_common = cat_series.value_counts().idxmax()
+else:
+    most_common = "None"
+
+colB.metric("Most Asked Category", most_common)
+
+st.divider()
+
+# -----------------------------
+# CHAT MEMORY
+# -----------------------------
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 st.header("Ask about Medicaps university rules...")
 
 # -----------------------------
 # DISPLAY OLD MESSAGES
 # -----------------------------
-
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -48,7 +53,6 @@ for message in st.session_state.messages:
 # -----------------------------
 # QUICK QUESTIONS
 # -----------------------------
-
 st.subheader("Quick Questions")
 
 col1, col2, col3 = st.columns(3)
@@ -67,7 +71,6 @@ if col3.button("Leave procedure"):
 # -----------------------------
 # CHAT INPUT
 # -----------------------------
-
 user_input = st.chat_input("Ask about university rules")
 
 if quick_question:
@@ -80,7 +83,6 @@ else:
 # -----------------------------
 # PROCESS QUESTION
 # -----------------------------
-
 if question:
 
     st.session_state.messages.append({"role": "user", "content": question})
@@ -103,7 +105,7 @@ if question:
             {"role": "assistant", "content": answer}
         )
 
-        # save analytics
+        # SAVE ANALYTICS
         st.session_state.analytics.append(datetime.now())
 
         if "Category:" in answer:
@@ -113,21 +115,13 @@ if question:
 # -----------------------------
 # CLEAR CHAT
 # -----------------------------
-
 if st.button("Clear Chat"):
     st.session_state.messages = []
     st.rerun()
 
 # -----------------------------
-# ANALYTICS PANEL
-# -----------------------------
-
-st.divider()
-
-# -----------------------------
 # FOOTER
 # -----------------------------
-
 st.markdown(
 """
 <style>
