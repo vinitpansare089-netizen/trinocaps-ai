@@ -4,13 +4,13 @@ from models.knowledge_ai import get_answer
 
 st.title("TrinoCaps AI")
 
-# Chat memory
+# trino's chat memory
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 st.header("Ask about Medicaps university rules...")
 
-# Display previous chat messages
+# trino's previous chat messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -26,10 +26,10 @@ if question:
     with st.chat_message("user"):
         st.markdown(question)
 
-    # AI response
+    # Trino's response
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        message_placeholder.markdown("AI is thinking...")
+        message_placeholder.markdown("Trino is thinking...")
 
         time.sleep(1)
 
