@@ -4,33 +4,33 @@ from models.knowledge_ai import get_answer
 
 st.title("TrinoCaps AI")
 
-# Chat memory
+#VInit's chat memory
 
 if "messages" not in st.session_state:
  st.session_state.messages = []
 
 st.header("Ask about Medicaps university rules...")
 
-# Display previous chat messages
+# pichle chat message will display here
 
 for message in st.session_state.messages:
  with st.chat_message(message["role"]):
   st.markdown(message["content"])
 
-# Chat input
+# input dena hai sir...
 
 question = st.chat_input("Ask about university rules")
 
 if question:
 
 
-# show user message
+# ye user ke message koshow karega ....
  st.session_state.messages.append({"role": "user", "content": question})
 
 with st.chat_message("user"):
     st.markdown(question)
 
-# AI response
+# AI response dega bhai
 with st.chat_message("assistant"):
     message_placeholder = st.empty()
     message_placeholder.markdown("AI is thinking...")
@@ -46,13 +46,13 @@ with st.chat_message("assistant"):
     )
 
 
-# Clear chat button
+# Clear chat wala button
 
 if st.button("Clear Chat"):
  st.session_state.messages = []
  st.rerun()
 
-# Footer
+# Footer (sab streamlit ka hai not my domain)
 
 st.markdown(
 """

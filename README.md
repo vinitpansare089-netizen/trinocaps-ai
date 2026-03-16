@@ -1,6 +1,6 @@
 ---
 title: TrinoCaps AI
-emoji: 🤖
+emoji: 😃
 colorFrom: blue
 colorTo: purple
 sdk: streamlit
