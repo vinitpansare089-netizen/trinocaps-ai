@@ -22,18 +22,24 @@ chunks = [c.strip() for c in text.split("\n") if c.strip()]
 # convert chunks to embeddings
 chunk_embeddings = model.encode(chunks)
 
-# simple category keywords
+
+# -----------------------------
+# CATEGORY KEYWORDS
+# -----------------------------
+
 categories = {
-    "attendance": ["attendance", "class", "lecture"],
-    "hostel": ["hostel", "gate", "warden", "room"],
-    "exam": ["exam", "test", "invigilator"],
-    "library": ["library", "book"],
-    "mess": ["mess", "canteen", "food"],
-    "discipline": ["discipline", "behavior", "misconduct"],
-    "sop": ["procedure", "apply", "application", "process"]
+    "Attendance": ["attendance", "class", "lecture"],
+    "Hostel": ["hostel", "gate", "warden", "room"],
+    "Exam": ["exam", "test", "invigilator"],
+    "Library": ["library", "book"],
+    "Mess": ["mess", "canteen", "food"],
+    "Discipline": ["discipline", "misconduct", "behavior"],
+    "Procedure": ["procedure", "apply", "application", "process"]
 }
 
+
 def detect_category(question):
+
     question = question.lower()
 
     for category, keywords in categories.items():
@@ -41,48 +47,52 @@ def detect_category(question):
             if word in question:
                 return category
 
-    return None
+    return "General"
 
+
+# -----------------------------
+# MAIN SEARCH FUNCTION
+# -----------------------------
 
 def get_answer(question):
 
     question = question.strip().lower()
 
-    # detect category
     category = detect_category(question)
-
-    filtered_chunks = chunks
-    filtered_embeddings = chunk_embeddings
-
-    if category:
-        filtered_chunks = [
-            c for c in chunks if category in c.lower()
-        ]
-
-        if filtered_chunks:
-            filtered_embeddings = model.encode(filtered_chunks)
 
     # embedding search
     question_embedding = model.encode([question])
 
-    similarity = cosine_similarity(question_embedding, filtered_embeddings)[0]
+    similarity = cosine_similarity(question_embedding, chunk_embeddings)[0]
 
-    # top 3 results
+    # get top 3
     top_indices = np.argsort(similarity)[-3:][::-1]
 
     results = []
 
     for idx in top_indices:
+
         score = similarity[idx]
 
-        if score >= 0.45:
+        if score >= 0.30:
+
+            rule = chunks[idx]
+
             results.append(
-                f"Category: {category if category else 'general'}\n"
-                f"{filtered_chunks[idx]}\n"
+                f"📂 Category: {category}\n"
+                f"{rule}\n"
                 f"Confidence: {round(score,2)}"
             )
 
     if not results:
-        return "Sorry, I couldn't find a relevant university rule for that question."
+        return """
+Sorry, I couldn't find a relevant university rule.
+
+Try asking:
+• attendance rule
+• hostel gate timing
+• leave procedure
+• library rules
+"""
 
     return "\n\n".join(results)

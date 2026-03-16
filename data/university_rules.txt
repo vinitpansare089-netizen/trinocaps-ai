@@ -1,10 +1,10 @@
-Examination : Students must maintain at least 75% attendance in each subject to appear in the examination.
-Examination : Students with attendance below 75% may be restricted from appearing in exams.
-Examination : Medical leave may be considered for attendance shortage if valid documents are provided.
-Examination : Students must attend all practical sessions as they are mandatory.
-Examination : Attendance will be recorded for every lecture by the course instructor.
-Examination : Repeated absence from classes without permission may lead to disciplinary action.
-Examination : Students arriving more than 10 minutes late may be marked absent for that lecture.
+Attendance : Students must maintain at least 75% attendance in each subject to appear in the examination.
+Attendence : Students with attendance below 75% may be restricted from appearing in exams.
+Attendence : Medical leave may be considered for attendance shortage if valid documents are provided.
+Attendence : Students must attend all practical sessions as they are mandatory.
+Attendence : Attendance will be recorded for every lecture by the course instructor.
+Attendence : Repeated absence from classes without permission may lead to disciplinary action.
+Attendence : Students arriving more than 10 minutes late may be marked absent for that lecture.
 
 Examination : Students must carry their university ID card to the examination hall.
 Examination : Students must reach the examination hall at least 15 minutes before the exam begins.
