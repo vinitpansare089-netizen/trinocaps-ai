@@ -4,11 +4,52 @@ from models.knowledge_ai import get_answer
 import pandas as pd
 from datetime import datetime
 
+# suggestions = {
+#     "Attendance": [
+#         "What happens if attendance is below 75%?",
+#         "How is attendance calculated?",
+#         "Can attendance shortage be condoned?"
+#     ],
+
+#     "Hostel": [
+#         "What are hostel gate timings?",
+#         "Are guests allowed in hostel?",
+#         "What are hostel discipline rules?"
+#     ],
+
+#     "Exam": [
+#         "What happens if a student cheats in exam?",
+#         "What items are allowed in exam hall?",
+#         "What are exam misconduct rules?"
+#     ],
+
+#     "Library": [
+#         "What are library timings?",
+#         "How many books can a student borrow?",
+#         "What happens if a library book is lost?"
+#     ],
+
+#     "Mess": [
+#         "What are mess timings?",
+#         "Can students skip mess subscription?",
+#         "Are outside guests allowed in mess?"
+#     ],
+
+#     "General": [
+#         "What are university discipline rules?",
+#         "How to apply for leave?",
+#         "What documents are needed for exams?"
+#     ]
+# }
+
 st.title("TrinoCaps AI")
 
 # -----------------------------
-# ANALYTICS MEMORY
+# SESSION STATE
 # -----------------------------
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 if "analytics" not in st.session_state:
     st.session_state.analytics = []
 
@@ -16,14 +57,24 @@ if "categories" not in st.session_state:
     st.session_state.categories = []
 
 # -----------------------------
-# ANALYTICS PANEL (TOP)
+# SIDEBAR QUERY HISTORY
+# -----------------------------
+with st.sidebar:
+    st.header("🕘 Query History")
+
+    for msg in st.session_state.messages:
+        if msg["role"] == "user":
+            st.write("•", msg["content"])
+
+# -----------------------------
+# ANALYTICS PANEL
 # -----------------------------
 st.subheader("📊 TrinoCaps Analytics")
 
-colA, colB = st.columns(2)
+col1, col2 = st.columns(2)
 
 total_questions = len(st.session_state.analytics)
-colA.metric("Total Questions Asked", total_questions)
+col1.metric("Total Questions Asked", total_questions)
 
 if st.session_state.categories:
     cat_series = pd.Series(st.session_state.categories)
@@ -31,40 +82,30 @@ if st.session_state.categories:
 else:
     most_common = "None"
 
-colB.metric("Most Asked Category", most_common)
+col2.metric("Most Asked Category", most_common)
 
 st.divider()
 
 # -----------------------------
-# CHAT MEMORY
-# -----------------------------
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-st.header("Ask about Medicaps university rules...")
-
-# -----------------------------
-# QUICK QUESTIONS (ONLY ONCE)
+# QUICK QUESTIONS
 # -----------------------------
 st.subheader("Quick Questions")
 
-col1, col2, col3 = st.columns(3)
+colA, colB, colC = st.columns(3)
 
 quick_question = None
 
-if col1.button("Attendance rule"):
+if colA.button("Attendance rule"):
     quick_question = "What is the attendance rule?"
 
-if col2.button("Hostel gate timing"):
+if colB.button("Hostel gate timing"):
     quick_question = "When do hostel gates close?"
 
-if col3.button("Leave procedure"):
+if colC.button("Leave procedure"):
     quick_question = "How to apply for leave?"
 
-st.divider()
-
 # -----------------------------
-# DISPLAY OLD MESSAGES
+# DISPLAY CHAT HISTORY
 # -----------------------------
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -107,12 +148,45 @@ if question:
             {"role": "assistant", "content": answer}
         )
 
-        # SAVE ANALYTICS
+        # analytics tracking
         st.session_state.analytics.append(datetime.now())
 
         if "Category:" in answer:
             cat = answer.split("Category:")[1].split("\n")[0].strip()
             st.session_state.categories.append(cat)
+
+        # -----------------------------
+        # AI UNDERSTANDING PANEL
+        # -----------------------------
+        st.info(f"""
+AI Understanding
+
+Detected Category: {cat if 'cat' in locals() else 'General'}
+Query: {question}
+Retrieval Method: Semantic Search
+""")
+
+        # -----------------------------
+        # FOLLOW UP SUGGESTIONS
+        # -----------------------------
+        st.markdown("### Related Questions")
+
+        c1, c2, c3 = st.columns(3)
+
+        if c1.button("Exam rules"):
+            st.session_state.messages.append(
+                {"role": "user", "content": "What are exam rules?"}
+            )
+
+        if c2.button("Library rules"):
+            st.session_state.messages.append(
+                {"role": "user", "content": "What are library rules?"}
+            )
+
+        if c3.button("Hostel rules"):
+            st.session_state.messages.append(
+                {"role": "user", "content": "What are hostel rules?"}
+            )
 
 # -----------------------------
 # CLEAR CHAT
