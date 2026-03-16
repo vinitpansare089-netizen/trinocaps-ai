@@ -7,6 +7,17 @@ from datetime import datetime
 
 st.title("TrinoCaps AI")
 
+st.subheader("📊 TrinoCaps Analytics Panel")
+
+# total questions
+total_questions = len(st.session_state.analytics)
+st.metric("Total Questions Asked", total_questions)
+
+# most asked category
+if st.session_state.categories:
+    cat_series = pd.Series(st.session_state.categories)
+    most_common = cat_series.value_counts().idxmax()
+    st.metric("Most Asked Category", most_common)
 # -----------------------------
 # CHAT MEMORY
 # -----------------------------
@@ -112,35 +123,6 @@ if st.button("Clear Chat"):
 # -----------------------------
 
 st.divider()
-st.subheader("📊 TrinoCaps Analytics Panel")
-
-# total questions
-total_questions = len(st.session_state.analytics)
-st.metric("Total Questions Asked", total_questions)
-
-# most asked category
-if st.session_state.categories:
-    cat_series = pd.Series(st.session_state.categories)
-    most_common = cat_series.value_counts().idxmax()
-    st.metric("Most Asked Category", most_common)
-
-# queries per hour chart
-if st.session_state.analytics:
-
-    df = pd.DataFrame({"time": st.session_state.analytics})
-    df["hour"] = df["time"].dt.hour
-
-    chart_data = df.groupby("hour").size().reset_index(name="queries")
-
-    chart = alt.Chart(chart_data).mark_bar().encode(
-        x="hour:O",
-        y="queries:Q",
-        tooltip=["hour", "queries"]
-    )
-
-    st.subheader("Queries in Last 24 Hours")
-
-    st.altair_chart(chart, use_container_width=True)
 
 # -----------------------------
 # FOOTER
