@@ -15,6 +15,19 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+st.subheader("Quick Questions")
+
+col1, col2, col3 = st.columns(3)
+
+if col1.button("Attendance rule"):
+    question = "What is the attendance rule?"
+
+if col2.button("Hostel gate timing"):
+    question = "When do hostel gates close?"
+
+if col3.button("Leave procedure"):
+    question = "How to apply for leave?"
+
 # Chat input
 question = st.chat_input("Ask about university rules")
 
