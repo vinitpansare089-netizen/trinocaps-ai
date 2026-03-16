@@ -7,11 +7,8 @@ from datetime import datetime
 st.title("TrinoCaps AI")
 
 # -----------------------------
-# SESSION STATE
+# ANALYTICS MEMORY
 # -----------------------------
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 if "analytics" not in st.session_state:
     st.session_state.analytics = []
 
@@ -19,24 +16,14 @@ if "categories" not in st.session_state:
     st.session_state.categories = []
 
 # -----------------------------
-# SIDEBAR QUERY HISTORY
-# -----------------------------
-with st.sidebar:
-    st.header("🕘 Query History")
-
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            st.write("•", msg["content"])
-
-# -----------------------------
-# ANALYTICS PANEL
+# ANALYTICS PANEL (TOP)
 # -----------------------------
 st.subheader("📊 TrinoCaps Analytics")
 
-col1, col2 = st.columns(2)
+colA, colB = st.columns(2)
 
 total_questions = len(st.session_state.analytics)
-col1.metric("Total Questions Asked", total_questions)
+colA.metric("Total Questions Asked", total_questions)
 
 if st.session_state.categories:
     cat_series = pd.Series(st.session_state.categories)
@@ -44,30 +31,40 @@ if st.session_state.categories:
 else:
     most_common = "None"
 
-col2.metric("Most Asked Category", most_common)
+colB.metric("Most Asked Category", most_common)
 
 st.divider()
 
 # -----------------------------
-# QUICK QUESTIONS
+# CHAT MEMORY
+# -----------------------------
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+st.header("Ask about Medicaps university rules...")
+
+# -----------------------------
+# QUICK QUESTIONS (ONLY ONCE)
 # -----------------------------
 st.subheader("Quick Questions")
 
-colA, colB, colC = st.columns(3)
+col1, col2, col3 = st.columns(3)
 
 quick_question = None
 
-if colA.button("Attendance rule"):
+if col1.button("Attendance rule"):
     quick_question = "What is the attendance rule?"
 
-if colB.button("Hostel gate timing"):
+if col2.button("Hostel gate timing"):
     quick_question = "When do hostel gates close?"
 
-if colC.button("Leave procedure"):
+if col3.button("Leave procedure"):
     quick_question = "How to apply for leave?"
 
+st.divider()
+
 # -----------------------------
-# DISPLAY CHAT HISTORY
+# DISPLAY OLD MESSAGES
 # -----------------------------
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -110,45 +107,12 @@ if question:
             {"role": "assistant", "content": answer}
         )
 
-        # analytics tracking
+        # SAVE ANALYTICS
         st.session_state.analytics.append(datetime.now())
 
         if "Category:" in answer:
             cat = answer.split("Category:")[1].split("\n")[0].strip()
             st.session_state.categories.append(cat)
-
-        # -----------------------------
-        # AI UNDERSTANDING PANEL
-        # -----------------------------
-        st.info(f"""
-AI Understanding
-
-Detected Category: {cat if 'cat' in locals() else 'General'}
-Query: {question}
-Retrieval Method: Semantic Search
-""")
-
-        # -----------------------------
-        # FOLLOW UP SUGGESTIONS
-        # -----------------------------
-        st.markdown("### Related Questions")
-
-        c1, c2, c3 = st.columns(3)
-
-        if c1.button("Exam rules"):
-            st.session_state.messages.append(
-                {"role": "user", "content": "What are exam rules?"}
-            )
-
-        if c2.button("Library rules"):
-            st.session_state.messages.append(
-                {"role": "user", "content": "What are library rules?"}
-            )
-
-        if c3.button("Hostel rules"):
-            st.session_state.messages.append(
-                {"role": "user", "content": "What are hostel rules?"}
-            )
 
 # -----------------------------
 # CLEAR CHAT
