@@ -66,7 +66,7 @@ def get_answer(question):
     similarity = cosine_similarity(question_embedding, chunk_embeddings)[0]
 
     # get top 3
-    top_indices = np.argsort(similarity)[-3:][::-1]
+    top_indices = np.argsort(similarity)[-2:][::-1]
 
     results = []
 
@@ -79,7 +79,7 @@ def get_answer(question):
             rule = chunks[idx]
 
             results.append(
-                f"📂 Category: {category}\n\n"
+                f"Category: {category}\n\n"
                 f"{rule}\n"
                 #f"Confidence: {round(score,2)}"
             )
