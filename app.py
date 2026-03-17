@@ -44,9 +44,7 @@ from datetime import datetime
 
 st.title("TrinoCaps AI")
 
-# -----------------------------
-# SESSION STATE
-# -----------------------------
+#Message ka session chalane ke liye
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -56,9 +54,7 @@ if "analytics" not in st.session_state:
 if "categories" not in st.session_state:
     st.session_state.categories = []
 
-# -----------------------------
-# SIDEBAR QUERY HISTORY
-# -----------------------------
+#side me query history ke liye
 with st.sidebar:
     st.header("🕘 Query History")
 
@@ -66,9 +62,7 @@ with st.sidebar:
         if msg["role"] == "user":
             st.write("•", msg["content"])
 
-# -----------------------------
-# ANALYTICS PANEL
-# -----------------------------
+#Analytics ke liye 
 st.subheader("📊 TrinoCaps Analytics")
 
 col1, col2 = st.columns(2)
@@ -86,9 +80,7 @@ col2.metric("Most Asked Category", most_common)
 
 st.divider()
 
-# -----------------------------
-# QUICK QUESTIONS
-# -----------------------------
+#Quick questions wala feature
 st.subheader("Quick Questions")
 
 colA, colB, colC = st.columns(3)
@@ -104,16 +96,12 @@ if colB.button("Hostel gate timing"):
 if colC.button("Leave procedure"):
     quick_question = "How to apply for leave?"
 
-# -----------------------------
-# DISPLAY CHAT HISTORY
-# -----------------------------
+#chats ki history dikhane ke liye
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# -----------------------------
-# CHAT INPUT
-# -----------------------------
+#chats ka input lega
 user_input = st.chat_input("Ask about university rules")
 
 if quick_question:
@@ -123,9 +111,7 @@ elif user_input:
 else:
     question = None
 
-# -----------------------------
-# PROCESS QUESTION
-# -----------------------------
+#questions ko process karega
 if question:
 
     st.session_state.messages.append({"role": "user", "content": question})
@@ -155,9 +141,7 @@ if question:
             cat = answer.split("Category:")[1].split("\n")[0].strip()
             st.session_state.categories.append(cat)
 
-        # -----------------------------
-        # AI UNDERSTANDING PANEL
-        # -----------------------------
+       #Trino ka understanding panel
         st.info(f"""
 AI Understanding
 
@@ -166,9 +150,7 @@ Query: {question}
 Retrieval Method: Semantic Search
 """)
 
-        # -----------------------------
-        # FOLLOW UP SUGGESTIONS
-        # -----------------------------
+        #Follow up questions
         st.markdown("### Related Questions")
 
         c1, c2, c3 = st.columns(3)
@@ -188,16 +170,12 @@ Retrieval Method: Semantic Search
                 {"role": "user", "content": "What are hostel rules?"}
             )
 
-# -----------------------------
-# CLEAR CHAT
-# -----------------------------
+#sab kuch saaf.......
 if st.button("Clear Chat"):
     st.session_state.messages = []
     st.rerun()
 
-# -----------------------------
-# FOOTER
-# -----------------------------
+# Footer 
 st.markdown(
 """
 <style>

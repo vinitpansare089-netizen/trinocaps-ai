@@ -23,9 +23,7 @@ chunks = [c.strip() for c in text.split("\n") if c.strip()]
 chunk_embeddings = model.encode(chunks)
 
 
-# -----------------------------
-# CATEGORY KEYWORDS
-# -----------------------------
+#category ke liye keywords
 
 categories = {
     "Attendance": ["attendance", "class", "lecture"],
@@ -50,9 +48,7 @@ def detect_category(question):
     return "General"
 
 
-# -----------------------------
-# MAIN SEARCH FUNCTION
-# -----------------------------
+#Main search function
 
 def get_answer(question):
 
@@ -74,7 +70,7 @@ def get_answer(question):
 
         score = similarity[idx]
 
-        if score >= 0.30:
+        if score >= 0.30:  #Threshold vinit
 
             rule = chunks[idx]
 
