@@ -42,7 +42,9 @@ from datetime import datetime
 #     ]
 # }
 
-st.title("TrinoCaps AI")
+
+st.title("🎓 TrinoCaps AI")
+st.caption("Built by Vinit • MCA Student • Trinovous")
 
 #Message ka session chalane ke liye
 if "messages" not in st.session_state:
@@ -63,7 +65,7 @@ with st.sidebar:
             st.write("•", msg["content"])
 
 #Analytics ke liye 
-st.subheader("📊 TrinoCaps Analytics")
+st.subheader("📊 How students are using this")
 
 col1, col2 = st.columns(2)
 
@@ -81,7 +83,7 @@ col2.metric("Most Asked Category", most_common)
 st.divider()
 
 #Quick questions wala feature
-st.subheader("Quick Questions")
+st.subheader("Try these")
 
 colA, colB, colC = st.columns(3)
 
@@ -196,3 +198,9 @@ TrinoCaps AI • Built by Vinit | Powered by Trinovous
 """,
 unsafe_allow_html=True
 )
+
+st.markdown("""
+👋 Hey! I built this to make university rules simple.
+
+No PDFs. No confusion. Just ask.
+""")
