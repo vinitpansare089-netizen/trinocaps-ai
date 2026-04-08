@@ -9,7 +9,7 @@ st.set_page_config(page_title="TrinoCaps AI", layout="wide")
 st.title("🎓 TrinoCaps AI")
 st.caption("Built by Vinit • MCA Student • Trinovous")
 
-# session memory
+# ================= SESSION =================
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -19,7 +19,18 @@ if "analytics" not in st.session_state:
 if "categories" not in st.session_state:
     st.session_state.categories = []
 
-# ================= ANALYTICS (TOP CLEAN UI) =================
+# ================= SIDEBAR QUERY HISTORY =================
+with st.sidebar:
+    st.header("🕘 Query History")
+
+    if st.session_state.messages:
+        for msg in reversed(st.session_state.messages):
+            if msg["role"] == "user":
+                st.write("•", msg["content"])
+    else:
+        st.write("No queries yet...")
+
+# ================= ANALYTICS =================
 col1, col2 = st.columns(2)
 
 total_questions = len(st.session_state.analytics)
@@ -34,7 +45,7 @@ col2.metric("🔥 Most Asked", most_common)
 
 st.divider()
 
-# ================= QUICK QUESTIONS (ONLY ONCE) =================
+# ================= QUICK QUESTIONS =================
 st.subheader("🚀 Try these")
 
 colA, colB, colC = st.columns(3)
@@ -52,7 +63,7 @@ if colC.button("Leave"):
 
 st.divider()
 
-# ================= CHAT HISTORY =================
+# ================= CHAT =================
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -78,7 +89,7 @@ if question:
     with st.chat_message("assistant"):
 
         placeholder = st.empty()
-        placeholder.markdown("Thinking...")
+        placeholder.markdown("Thinking... 📚")
 
         time.sleep(1)
 
