@@ -6,7 +6,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="Medicaps AI", layout="wide")
 
-# ================= CUSTOM CSS =================
+# CSS--------------------
 st.markdown("""
 <style>
 .stApp {
@@ -37,7 +37,7 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# ================= HEADER =================
+#  HEADER
 col_logo, col_title = st.columns([1, 5])
 
 with col_logo:
@@ -47,7 +47,7 @@ with col_title:
     st.title("🎓 Medicaps AI Assistant")
     st.caption("Built by Vinit • Trinovous")
 
-# ================= SESSION =================
+#----------------- SESSION -------------------
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -57,7 +57,7 @@ if "analytics" not in st.session_state:
 if "categories" not in st.session_state:
     st.session_state.categories = []
 
-# ================= SIDEBAR =================
+# --------------- SIDEBAR -----------------
 with st.sidebar:
     st.header("🕘 Query History")
 
@@ -68,7 +68,7 @@ with st.sidebar:
     else:
         st.write("No queries yet")
 
-# ================= ANALYTICS =================
+# ------------- ANALYTICS -------------------------------
 col1, col2 = st.columns(2)
 
 col1.metric("📊 Total Questions", len(st.session_state.analytics))
@@ -82,7 +82,7 @@ col2.metric("🔥 Most Asked", most_common)
 
 st.divider()
 
-# ================= QUICK BUTTONS =================
+#------------------------------------------------------------------
 colA, colB, colC = st.columns(3)
 
 quick_question = None
@@ -98,12 +98,12 @@ if colC.button("Leave"):
 
 st.divider()
 
-# ================= CHAT =================
+# ###CHAT 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ================= INPUT =================
+###### INPUT 
 user_input = st.chat_input("Ask anything about Medicaps rules...")
 
 if quick_question:
@@ -113,7 +113,7 @@ elif user_input:
 else:
     question = None
 
-# ================= RESPONSE =================
+
 if question:
 
     st.session_state.messages.append({"role": "user", "content": question})
@@ -124,7 +124,7 @@ if question:
     with st.chat_message("assistant"):
 
         placeholder = st.empty()
-        placeholder.markdown("Thinking...")
+        placeholder.markdown(" Trino is Thinking...")
 
         time.sleep(1)
 
@@ -142,12 +142,12 @@ if question:
             cat = answer.split("Category:")[1].split("\n")[0].strip()
             st.session_state.categories.append(cat)
 
-# ================= CLEAR =================
+
 if st.button("Clear Chat"):
     st.session_state.messages = []
     st.rerun()
 
-# ================= FOOTER =================
+
 st.markdown("""
 ---
 💡 Built for Medicaps students — No PDFs. Just ask.
