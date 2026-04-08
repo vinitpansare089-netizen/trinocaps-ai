@@ -3,41 +3,28 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
 
-# load embedding model
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 file_path = os.path.join(BASE_DIR, "data", "university_rules.txt")
 
-if not os.path.exists(file_path):
-    raise FileNotFoundError(f"File not found: {file_path}")
-
-# load knowledge text
 with open(file_path, "r", encoding="utf-8") as f:
     text = f.read()
 
-# split rules
 chunks = [c.strip() for c in text.split("\n") if c.strip()]
-
-# convert chunks to embeddings
 chunk_embeddings = model.encode(chunks)
 
-
-#category ke liye keywords
-
 categories = {
-    "Attendance": ["attendance", "class", "lecture"],
-    "Hostel": ["hostel", "gate", "warden", "room"],
-    "Exam": ["exam", "test", "invigilator"],
-    "Library": ["library", "book"],
+    "Attendance": ["attendance", "class", "lecture", "present", "absent"],
+    "Hostel": ["hostel", "gate", "warden", "room", "entry"],
+    "Exam": ["exam", "test", "cheating", "invigilator"],
+    "Library": ["library", "book", "issue", "return"],
     "Mess": ["mess", "canteen", "food"],
     "Discipline": ["discipline", "misconduct", "behavior"],
-    "Procedure": ["procedure", "apply", "application", "process"]
+    "Procedure": ["procedure", "apply", "application", "process", "leave"]
 }
 
-
 def detect_category(question):
-
     question = question.lower()
 
     for category, keywords in categories.items():
@@ -47,48 +34,41 @@ def detect_category(question):
 
     return "General"
 
-
-#Main search function
-
 def get_answer(question):
 
-    question = question.strip().lower()
+    original_question = question
+    question = question.lower()
 
     category = detect_category(question)
 
-    # embedding search
     question_embedding = model.encode([question])
-
     similarity = cosine_similarity(question_embedding, chunk_embeddings)[0]
 
-    # get top 3
-    top_indices = np.argsort(similarity)[-2:][::-1]
+    top_indices = np.argsort(similarity)[-3:][::-1]
 
     results = []
 
     for idx in top_indices:
-
         score = similarity[idx]
 
-        if score >= 0.30:  #Threshold vinit
-
-            rule = chunks[idx]
-
-            results.append(
-                f"Category: {category}\n\n"
-                f"{rule}\n"
-                #f"Confidence: {round(score,2)}"
-            )
+        if score >= 0.30:
+            results.append(chunks[idx])
 
     if not results:
-        return """
-Sorry, I couldn't find a relevant university rule.
+        return f"""
+❌ No exact rule found.
 
 Try asking:
-• attendance rule
-• hostel gate timing
-• leave procedure
-• library rules
+• attendance rule  
+• hostel timing  
+• exam rules  
+• leave procedure  
 """
 
-    return "\n\n".join(results)
+    # Clean UI output
+    formatted = f"📂 Category: {category}\n\n"
+
+    for r in results:
+        formatted += f"• {r}\n\n"
+
+    return formatted
