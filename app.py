@@ -4,10 +4,48 @@ from models.knowledge_ai import get_answer
 import pandas as pd
 from datetime import datetime
 
-st.set_page_config(page_title="TrinoCaps AI", layout="wide")
+st.set_page_config(page_title="Medicaps AI", layout="wide")
 
-st.title("🎓 TrinoCaps AI")
-st.caption("Built by Vinit • MCA Student • Trinovous")
+# ================= CUSTOM CSS =================
+st.markdown("""
+<style>
+.stApp {
+    background-color: #0f172a;
+    color: white;
+}
+
+h1, h2, h3 {
+    color: white;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #020617;
+}
+
+.stButton>button {
+    background-color: #1e3a8a;
+    color: white;
+    border-radius: 8px;
+}
+
+.stChatMessage {
+    background-color: #020617;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# ================= HEADER =================
+col_logo, col_title = st.columns([1, 5])
+
+with col_logo:
+    st.image("assets/logo.png", width=100)
+
+with col_title:
+    st.title("🎓 Medicaps AI Assistant")
+    st.caption("Built by Vinit • Trinovous")
 
 # ================= SESSION =================
 if "messages" not in st.session_state:
@@ -19,7 +57,7 @@ if "analytics" not in st.session_state:
 if "categories" not in st.session_state:
     st.session_state.categories = []
 
-# ================= SIDEBAR QUERY HISTORY =================
+# ================= SIDEBAR =================
 with st.sidebar:
     st.header("🕘 Query History")
 
@@ -28,13 +66,12 @@ with st.sidebar:
             if msg["role"] == "user":
                 st.write("•", msg["content"])
     else:
-        st.write("No queries yet...")
+        st.write("No queries yet")
 
 # ================= ANALYTICS =================
 col1, col2 = st.columns(2)
 
-total_questions = len(st.session_state.analytics)
-col1.metric("📊 Total Questions", total_questions)
+col1.metric("📊 Total Questions", len(st.session_state.analytics))
 
 if st.session_state.categories:
     most_common = pd.Series(st.session_state.categories).value_counts().idxmax()
@@ -45,9 +82,7 @@ col2.metric("🔥 Most Asked", most_common)
 
 st.divider()
 
-# ================= QUICK QUESTIONS =================
-st.subheader("🚀 Try these")
-
+# ================= QUICK BUTTONS =================
 colA, colB, colC = st.columns(3)
 
 quick_question = None
@@ -69,7 +104,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # ================= INPUT =================
-user_input = st.chat_input("Ask anything about university rules...")
+user_input = st.chat_input("Ask anything about Medicaps rules...")
 
 if quick_question:
     question = quick_question
@@ -89,7 +124,7 @@ if question:
     with st.chat_message("assistant"):
 
         placeholder = st.empty()
-        placeholder.markdown("Thinking... 📚")
+        placeholder.markdown("Thinking...")
 
         time.sleep(1)
 
@@ -101,7 +136,6 @@ if question:
             {"role": "assistant", "content": answer}
         )
 
-        # analytics
         st.session_state.analytics.append(datetime.now())
 
         if "Category:" in answer:
@@ -116,5 +150,5 @@ if st.button("Clear Chat"):
 # ================= FOOTER =================
 st.markdown("""
 ---
-💡 Built to simplify university rules — no PDFs, just ask.
+💡 Built for Medicaps students — No PDFs. Just ask.
 """)
